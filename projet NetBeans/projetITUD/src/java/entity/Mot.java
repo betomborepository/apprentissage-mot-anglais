@@ -45,7 +45,7 @@ public class Mot implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Column(name = "ANGLAIS")
-    private Character anglais;
+    private String anglais;
     @Column(name = "CLE")
     private String cle;
     @Column(name = "FRANCAIS")
@@ -74,11 +74,11 @@ public class Mot implements Serializable {
         this.id = id;
     }
 
-    public Character getAnglais() {
+    public String getAnglais() {
         return anglais;
     }
 
-    public void setAnglais(Character anglais) {
+    public void setAnglais(String anglais) {
         this.anglais = anglais;
     }
 

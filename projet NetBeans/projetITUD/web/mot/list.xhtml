@@ -8,21 +8,21 @@
     <body>
         <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">          
             <ui:define name="content">
-                <p:dataTable id="cars1" var="mot" value="#{MotBean.allMot}" editable="true" style="margin-bottom:20px">
+                <p:dataTable id="cars1" var="mot" value="#{motBean.allMots}" editable="true" style="margin-bottom:20px">
                     <f:facet name="header">
                         Liste de mots
                     </f:facet>
                     <p:column headerText="Francais">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{mot.french}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput" value="#{mot.french}" style="width:100%"/></f:facet>
+                            <f:facet name="output"><h:outputText value="#{mot.francais}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput" value="#{mot.francais}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Anglais">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{mot.english}" /></f:facet>
-                            <f:facet name="input"><p:inputText value="#{mot.english}" style="width:100%" label="Year"/></f:facet>
+                            <f:facet name="output"><h:outputText value="#{mot.anglais}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{mot.anglais}" style="width:100%" label="Year"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
