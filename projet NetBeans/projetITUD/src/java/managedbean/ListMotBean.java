@@ -13,9 +13,16 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.TransferEvent;
+import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.DualListModel;
 import session.ListMotManager;
+import session.MotManager;
 
 /**
  *
@@ -24,6 +31,9 @@ import session.ListMotManager;
 @Named(value = "listMotBean")
 @ViewScoped
 public class ListMotBean implements Serializable {
+
+    @EJB
+    private MotManager motManager;
 
     @EJB
     private ListMotManager listMotManager;
@@ -66,6 +76,11 @@ public class ListMotBean implements Serializable {
         this.setDetailListMot(listMotManager.getListMot(this.idDetail));
     }
 
+    
+    public void setMotPickingList(DualListModel<Mot> motPickingList)
+    {
+        this.motPickingList = motPickingList;
+    }
     public DualListModel<Mot> getMotPickingList()
     {
         if(this.motPickingList == null)
@@ -112,21 +127,61 @@ public class ListMotBean implements Serializable {
     private DualListModel<Mot> generateMotPickingList() {
         List<Mot> source = new ArrayList<Mot>();
         List<Mot> target = new ArrayList<Mot>();
-        
-        
       
         
-        return  new DualListModel<>(source, target);                        
+        source = motManager.getExcludedMot(detailListMot.getMots());
+        target = detailListMot.getMots();
+      
+        this.motPickingList = new DualListModel<>(source, target);
+        return  this.motPickingList;                        
     }
     
     
     public String update()
     {
-        this.detailListMot.setMots( this.motPickingList.getTarget());
+        System.out.println( "testprint" + this.detail(this.detailListMot));
+       // this.detailListMot.setMots( this.motPickingList.getTarget());
         
         
         listMotManager.update(this.detailListMot);
-        return this.detail(this.detailListMot);
+        return this.detail(detailListMot);
     }
     
+    
+    
+    public void onTransfer(TransferEvent event)
+    {
+       for(Object mot : event.getItems()) {
+            if (event.isAdd())
+            {
+                this.detailListMot.getMots().add((Mot)mot);
+            }else
+            {
+                this.getDetailListMot().getMots().remove((Mot)mot);
+            }
+        }
+    }
+    
+    
+    public void onPickListSelect(SelectEvent event)
+    {
+        Mot mot = (Mot) event.getObject();
+        this.detailListMot.getMots().add(mot);
+    }
+    
+    
+    public Converter<Mot> getMotConverter()
+    {
+        return new Converter<Mot>() {
+            @Override
+            public Mot getAsObject(FacesContext fc, UIComponent uic, String id) {
+                return motManager.findByID(id); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public String getAsString(FacesContext fc, UIComponent uic, Mot t) {
+                return t.getId().toString(); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+    }
 }

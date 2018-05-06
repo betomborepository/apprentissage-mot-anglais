@@ -62,8 +62,7 @@ public class Mot implements Serializable {
 
     
      @ManyToMany( mappedBy = "mots" ,cascade = { 
-        CascadeType.PERSIST, 
-        CascadeType.MERGE
+        CascadeType.ALL       
     })
     @JoinTable(name = "mot_listmots",
         joinColumns = @JoinColumn(name = "id_mot"),
