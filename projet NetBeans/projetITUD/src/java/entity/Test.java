@@ -6,15 +6,11 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,16 +23,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author hp
  */
 @Entity
-@Table(name = "LISTMOT")
+@Table(name = "TEST")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Listmot.findAll", query = "SELECT l FROM Listmot l")
-    , @NamedQuery(name = "Listmot.findById", query = "SELECT l FROM Listmot l WHERE l.id = :id")
-    , @NamedQuery(name = "Listmot.findByDateCreation", query = "SELECT l FROM Listmot l WHERE l.dateCreation = :dateCreation")
-    , @NamedQuery(name = "Listmot.findByDateModification", query = "SELECT l FROM Listmot l WHERE l.dateModification = :dateModification")
-    , @NamedQuery(name = "Listmot.findByDescription", query = "SELECT l FROM Listmot l WHERE l.description = :description")
-    , @NamedQuery(name = "Listmot.findByTitre", query = "SELECT l FROM Listmot l WHERE l.titre = :titre")})
-public class Listmot implements Serializable {
+    @NamedQuery(name = "Test.findAll", query = "SELECT t FROM Test t")
+    , @NamedQuery(name = "Test.findById", query = "SELECT t FROM Test t WHERE t.id = :id")
+    , @NamedQuery(name = "Test.findByDateCreation", query = "SELECT t FROM Test t WHERE t.dateCreation = :dateCreation")
+    , @NamedQuery(name = "Test.findByDateModification", query = "SELECT t FROM Test t WHERE t.dateModification = :dateModification")
+    , @NamedQuery(name = "Test.findByTitre", query = "SELECT t FROM Test t WHERE t.titre = :titre")})
+public class Test implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,20 +44,13 @@ public class Listmot implements Serializable {
     @Column(name = "DATE_MODIFICATION")
     @Temporal(TemporalType.DATE)
     private Date dateModification;
-    @Column(name = "DESCRIPTION")
-    private String description;
     @Column(name = "TITRE")
     private String titre;
 
-     
-    
-    @ManyToMany
-    private List<Mot> mots = new ArrayList<>();
-    
-    public Listmot() {
+    public Test() {
     }
 
-    public Listmot(Integer id) {
+    public Test(Integer id) {
         this.id = id;
     }
 
@@ -90,14 +78,6 @@ public class Listmot implements Serializable {
         this.dateModification = dateModification;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getTitre() {
         return titre;
     }
@@ -116,10 +96,10 @@ public class Listmot implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Listmot)) {
+        if (!(object instanceof Test)) {
             return false;
         }
-        Listmot other = (Listmot) object;
+        Test other = (Test) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -128,23 +108,7 @@ public class Listmot implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Listmot[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the mots
-     */
-    public List<Mot> getMots() {
-        return mots;
-    }
-
-    /**
-     * @param mots the mots to set
-     */
-    public void setMots(List<Mot> mots) {
-        this.mots = mots;
+        return "entity.Test[ id=" + id + " ]";
     }
     
-    
-   
 }

@@ -38,4 +38,8 @@ public class ListMotManager {
     public Listmot getListMot(int idDetail) {
         return em.find(Listmot.class, idDetail);
     }
+
+    public void update(Listmot listmot) {
+       em.merge(listmot); //To change body of generated methods, choose Tools | Templates.
+    }
 }

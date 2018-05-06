@@ -6,37 +6,35 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author hp
  */
 @Entity
-@Table(name = "LISTMOT")
+@Table(name = "UTILISATEUR")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Listmot.findAll", query = "SELECT l FROM Listmot l")
-    , @NamedQuery(name = "Listmot.findById", query = "SELECT l FROM Listmot l WHERE l.id = :id")
-    , @NamedQuery(name = "Listmot.findByDateCreation", query = "SELECT l FROM Listmot l WHERE l.dateCreation = :dateCreation")
-    , @NamedQuery(name = "Listmot.findByDateModification", query = "SELECT l FROM Listmot l WHERE l.dateModification = :dateModification")
-    , @NamedQuery(name = "Listmot.findByDescription", query = "SELECT l FROM Listmot l WHERE l.description = :description")
-    , @NamedQuery(name = "Listmot.findByTitre", query = "SELECT l FROM Listmot l WHERE l.titre = :titre")})
-public class Listmot implements Serializable {
+    @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u")
+    , @NamedQuery(name = "Utilisateur.findById", query = "SELECT u FROM Utilisateur u WHERE u.id = :id")
+    , @NamedQuery(name = "Utilisateur.findByDateCreation", query = "SELECT u FROM Utilisateur u WHERE u.dateCreation = :dateCreation")
+    , @NamedQuery(name = "Utilisateur.findByDateModification", query = "SELECT u FROM Utilisateur u WHERE u.dateModification = :dateModification")
+    , @NamedQuery(name = "Utilisateur.findByType", query = "SELECT u FROM Utilisateur u WHERE u.type = :type")})
+public class Utilisateur implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,20 +47,15 @@ public class Listmot implements Serializable {
     @Column(name = "DATE_MODIFICATION")
     @Temporal(TemporalType.DATE)
     private Date dateModification;
-    @Column(name = "DESCRIPTION")
-    private String description;
-    @Column(name = "TITRE")
-    private String titre;
+    @Column(name = "TYPE")
+    private String type;
+    @OneToMany(mappedBy = "idUtilisateur")
+    private Collection<Historiquetest> historiquetestCollection;
 
-     
-    
-    @ManyToMany
-    private List<Mot> mots = new ArrayList<>();
-    
-    public Listmot() {
+    public Utilisateur() {
     }
 
-    public Listmot(Integer id) {
+    public Utilisateur(Integer id) {
         this.id = id;
     }
 
@@ -90,20 +83,21 @@ public class Listmot implements Serializable {
         this.dateModification = dateModification;
     }
 
-    public String getDescription() {
-        return description;
+    public String getType() {
+        return type;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getTitre() {
-        return titre;
+    @XmlTransient
+    public Collection<Historiquetest> getHistoriquetestCollection() {
+        return historiquetestCollection;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setHistoriquetestCollection(Collection<Historiquetest> historiquetestCollection) {
+        this.historiquetestCollection = historiquetestCollection;
     }
 
     @Override
@@ -116,10 +110,10 @@ public class Listmot implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Listmot)) {
+        if (!(object instanceof Utilisateur)) {
             return false;
         }
-        Listmot other = (Listmot) object;
+        Utilisateur other = (Utilisateur) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -128,23 +122,7 @@ public class Listmot implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Listmot[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the mots
-     */
-    public List<Mot> getMots() {
-        return mots;
-    }
-
-    /**
-     * @param mots the mots to set
-     */
-    public void setMots(List<Mot> mots) {
-        this.mots = mots;
+        return "entity.Utilisateur[ id=" + id + " ]";
     }
     
-    
-   
 }

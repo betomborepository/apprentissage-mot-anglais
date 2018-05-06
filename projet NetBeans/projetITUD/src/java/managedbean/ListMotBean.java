@@ -8,11 +8,13 @@ package managedbean;
 import entity.Listmot;
 import entity.Mot;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.view.ViewScoped;
+import org.primefaces.model.DualListModel;
 import session.ListMotManager;
 
 /**
@@ -32,6 +34,7 @@ public class ListMotBean implements Serializable {
     private List <entity.Listmot> allListMots;
     private Listmot detailListMot;
     private int idDetail;
+    private DualListModel<Mot> motPickingList;
     public ListMotBean() 
     {    
     }
@@ -63,6 +66,15 @@ public class ListMotBean implements Serializable {
         this.setDetailListMot(listMotManager.getListMot(this.idDetail));
     }
 
+    public DualListModel<Mot> getMotPickingList()
+    {
+        if(this.motPickingList == null)
+        {
+           this.motPickingList = generateMotPickingList();
+        }
+        
+        return this.motPickingList;
+    }
     /**
      * @return the detailListMot
      */
@@ -89,6 +101,32 @@ public class ListMotBean implements Serializable {
      */
     public void setIdDetail(int idDetail) {
         this.idDetail = idDetail;
+    }
+
+    
+    /**
+     * génère une double list, un pour la list de mots disponible
+     * une autre pour ceux qui sont selectionnés
+     * @return 
+     */
+    private DualListModel<Mot> generateMotPickingList() {
+        List<Mot> source = new ArrayList<Mot>();
+        List<Mot> target = new ArrayList<Mot>();
+        
+        
+      
+        
+        return  new DualListModel<>(source, target);                        
+    }
+    
+    
+    public String update()
+    {
+        this.detailListMot.setMots( this.motPickingList.getTarget());
+        
+        
+        listMotManager.update(this.detailListMot);
+        return this.detail(this.detailListMot);
     }
     
 }
