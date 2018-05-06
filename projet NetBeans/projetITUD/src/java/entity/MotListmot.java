@@ -38,7 +38,7 @@ public class MotListmot implements Serializable {
     @ManyToOne
     private Listmot idListmot;
     @JoinColumn(name = "ID_MOT", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Mot idMot;
 
     public MotListmot() {

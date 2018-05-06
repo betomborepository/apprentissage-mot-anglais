@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,11 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Mot.findAll", query = "SELECT m FROM Mot m")
     , @NamedQuery(name = "Mot.findById", query = "SELECT m FROM Mot m WHERE m.id = :id")
-    , @NamedQuery(name = "Mot.findByAnglais", query = "SELECT m FROM Mot m WHERE m.anglais = :anglais")
     , @NamedQuery(name = "Mot.findByCle", query = "SELECT m FROM Mot m WHERE m.cle = :cle")
-    , @NamedQuery(name = "Mot.findByFrancais", query = "SELECT m FROM Mot m WHERE m.francais = :francais")
     , @NamedQuery(name = "Mot.findByDateCreation", query = "SELECT m FROM Mot m WHERE m.dateCreation = :dateCreation")
-    , @NamedQuery(name = "Mot.findByDateModification", query = "SELECT m FROM Mot m WHERE m.dateModification = :dateModification")})
+    , @NamedQuery(name = "Mot.findByDateModification", query = "SELECT m FROM Mot m WHERE m.dateModification = :dateModification")
+    , @NamedQuery(name = "Mot.findByFrancais", query = "SELECT m FROM Mot m WHERE m.francais = :francais")
+    , @NamedQuery(name = "Mot.findByAnglais", query = "SELECT m FROM Mot m WHERE m.anglais = :anglais")})
 public class Mot implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,19 +43,19 @@ public class Mot implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "ANGLAIS")
-    private String anglais;
     @Column(name = "CLE")
     private String cle;
-    @Column(name = "FRANCAIS")
-    private String francais;
     @Column(name = "DATE_CREATION")
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
     @Column(name = "DATE_MODIFICATION")
     @Temporal(TemporalType.DATE)
     private Date dateModification;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMot")
+    @Column(name = "FRANCAIS")
+    private String francais;
+    @Column(name = "ANGLAIS")
+    private String anglais;
+    @OneToMany(mappedBy = "idMot")
     private Collection<MotListmot> motListmotCollection;
 
     public Mot() {
@@ -74,28 +73,12 @@ public class Mot implements Serializable {
         this.id = id;
     }
 
-    public String getAnglais() {
-        return anglais;
-    }
-
-    public void setAnglais(String anglais) {
-        this.anglais = anglais;
-    }
-
     public String getCle() {
         return cle;
     }
 
     public void setCle(String cle) {
         this.cle = cle;
-    }
-
-    public String getFrancais() {
-        return francais;
-    }
-
-    public void setFrancais(String francais) {
-        this.francais = francais;
     }
 
     public Date getDateCreation() {
@@ -112,6 +95,22 @@ public class Mot implements Serializable {
 
     public void setDateModification(Date dateModification) {
         this.dateModification = dateModification;
+    }
+
+    public String getFrancais() {
+        return francais;
+    }
+
+    public void setFrancais(String francais) {
+        this.francais = francais;
+    }
+
+    public String getAnglais() {
+        return anglais;
+    }
+
+    public void setAnglais(String anglais) {
+        this.anglais = anglais;
     }
 
     @XmlTransient
