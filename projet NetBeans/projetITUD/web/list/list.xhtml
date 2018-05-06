@@ -23,7 +23,7 @@
                         <h:outputText value="#{listmot.titre}" />
                     </p:column>
                      <p:column headerText="detail">
-                         <h:commandLink action="#{listMotBean.detail(listmot)}" />
+                         <h:link value="detail" outcome="#{listMotBean.detail(listmot)}" />
                     </p:column>
                 </p:dataTable>
             </ui:define>

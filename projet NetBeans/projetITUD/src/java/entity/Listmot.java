@@ -6,20 +6,21 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -52,13 +53,12 @@ public class Listmot implements Serializable {
     private String description;
     @Column(name = "TITRE")
     private String titre;
-    @OneToMany(mappedBy = "idListmot")
-    private Collection<TestListmot> testListmotCollection;
-    @OneToMany(mappedBy = "idListmot")
-    private Collection<RevisionListmot> revisionListmotCollection;
-    @OneToMany(mappedBy = "idListmot")
-    private Collection<MotListmot> motListmotCollection;
 
+     
+    
+    @ManyToMany
+    private List<Mot> mots = new ArrayList<>();
+    
     public Listmot() {
     }
 
@@ -106,33 +106,6 @@ public class Listmot implements Serializable {
         this.titre = titre;
     }
 
-    @XmlTransient
-    public Collection<TestListmot> getTestListmotCollection() {
-        return testListmotCollection;
-    }
-
-    public void setTestListmotCollection(Collection<TestListmot> testListmotCollection) {
-        this.testListmotCollection = testListmotCollection;
-    }
-
-    @XmlTransient
-    public Collection<RevisionListmot> getRevisionListmotCollection() {
-        return revisionListmotCollection;
-    }
-
-    public void setRevisionListmotCollection(Collection<RevisionListmot> revisionListmotCollection) {
-        this.revisionListmotCollection = revisionListmotCollection;
-    }
-
-    @XmlTransient
-    public Collection<MotListmot> getMotListmotCollection() {
-        return motListmotCollection;
-    }
-
-    public void setMotListmotCollection(Collection<MotListmot> motListmotCollection) {
-        this.motListmotCollection = motListmotCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -158,4 +131,6 @@ public class Listmot implements Serializable {
         return "entity.Listmot[ id=" + id + " ]";
     }
     
+    
+   
 }
