@@ -12,12 +12,22 @@
 
             
             <ui:define name="content">
-                <h:dataTable value = "#{testBean.allTests}" var = "testrow">
-                    <h:column>    				
-                        <f:facet name = "header">Name</f:facet>    				
-                        #{testrow.titre}
-                     </h:column>                  
-                 </h:dataTable>
+                <h3>Liste des tests disponibles</h3>
+                <p:dataTable var="test" value="#{testBean.allTests}">
+                    <p:column headerText="Titre">
+                        
+                        <h:outputLink value="test-detail.xhtml">
+                            <h:outputText value="#{test.titre}" />
+                            <f:param name="idtest" value="#{test.id}" />
+                        </h:outputLink>
+                    </p:column>
+                     <p:column headerText="Date de creation">
+                        <h:outputText value="#{test.dateCreation}" />
+                    </p:column>
+                     <p:column headerText="Date de modification">
+                        <h:outputText value="#{test.dateModification}" />
+                    </p:column>
+                </p:dataTable>
             </ui:define>
 
         </ui:composition>

@@ -7,6 +7,7 @@ package session;
 
 import entity.Test;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,11 +21,20 @@ import javax.persistence.Query;
 public class TestManager {
     @PersistenceContext(unitName = "projetITUDPU")
     private EntityManager em;
+    @PostConstruct
+    public void Init()
+    {
+        
+    }
     public List<Test> getAllTests() {
-         Query query = em.createNamedQuery("Test.findAll"); //To change body of generated methods, choose Tools | Templates.
+         Query query = em.createNamedQuery("Test.findAll");
+         System.out.println("getAllTests "+query.getResultList().size());//To change body of generated methods, choose Tools | Templates.
         return query.getResultList();
     }
-
+    public Test find(Integer id)
+    {
+         return em.find(Test.class, id);
+    }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 }

@@ -6,8 +6,8 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,11 +19,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author hp
+ * @author Matiasy
  */
 @Entity
 @Table(name = "UTILISATEUR")
@@ -33,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Utilisateur.findById", query = "SELECT u FROM Utilisateur u WHERE u.id = :id")
     , @NamedQuery(name = "Utilisateur.findByDateCreation", query = "SELECT u FROM Utilisateur u WHERE u.dateCreation = :dateCreation")
     , @NamedQuery(name = "Utilisateur.findByDateModification", query = "SELECT u FROM Utilisateur u WHERE u.dateModification = :dateModification")
-    , @NamedQuery(name = "Utilisateur.findByType", query = "SELECT u FROM Utilisateur u WHERE u.type = :type")})
+    , @NamedQuery(name = "Utilisateur.findByType", query = "SELECT u FROM Utilisateur u WHERE u.type = :type")
+    , @NamedQuery(name = "Utilisateur.findByUsername", query = "SELECT u FROM Utilisateur u WHERE u.username = :username")})
 public class Utilisateur implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,9 +49,10 @@ public class Utilisateur implements Serializable {
     private Date dateModification;
     @Column(name = "TYPE")
     private String type;
-    @OneToMany(mappedBy = "idUtilisateur")
-    private Collection<Historiquetest> historiquetestCollection;
-
+    @Column(name = "USERNAME")
+    private String username;
+    @OneToMany(mappedBy="idUser")
+    List<Test> listeTest;
     public Utilisateur() {
     }
 
@@ -91,13 +92,12 @@ public class Utilisateur implements Serializable {
         this.type = type;
     }
 
-    @XmlTransient
-    public Collection<Historiquetest> getHistoriquetestCollection() {
-        return historiquetestCollection;
+    public String getUsername() {
+        return username;
     }
 
-    public void setHistoriquetestCollection(Collection<Historiquetest> historiquetestCollection) {
-        this.historiquetestCollection = historiquetestCollection;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
