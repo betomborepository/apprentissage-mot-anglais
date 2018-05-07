@@ -76,4 +76,12 @@ public class MotManager {
         em.merge(mot);
     }
 
+    public void remove(Mot mot) {
+        if(em.contains(mot))
+        {
+            mot = em.merge(mot);
+        }
+        em.remove(mot); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

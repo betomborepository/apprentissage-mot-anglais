@@ -27,6 +27,7 @@ public class MotBean implements Serializable {
     @EJB
     private MotManager motManager;
     private Mot nouveauMot;
+    private Mot selectedMot;
     private String inputFr;
     private String inputEn;
     /**
@@ -106,5 +107,30 @@ public class MotBean implements Serializable {
      */
     public void setInputEn(String inputEn) {
         this.inputEn = inputEn;
+    }
+    
+    
+    public String enleverMot(Mot mot)
+    {
+        if(!mot.getListMots().isEmpty())
+            return null;
+        this.listMots.remove(mot);        
+        motManager.remove(mot);
+        
+        return null;
+    }
+
+    /**
+     * @return the selectedMot
+     */
+    public Mot getSelectedMot() {
+        return selectedMot;
+    }
+
+    /**
+     * @param selectedMot the selectedMot to set
+     */
+    public void setSelectedMot(Mot selectedMot) {
+        this.selectedMot = selectedMot;
     }
 }

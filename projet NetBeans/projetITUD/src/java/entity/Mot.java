@@ -72,7 +72,7 @@ public class Mot implements Serializable {
     )
     private List<Listmot> listMots = new ArrayList<>();
 
-    public Mot() {
+    public Mot() {  
     }
 
     public Mot(Integer id) {
@@ -150,6 +150,20 @@ public class Mot implements Serializable {
     @Override
     public String toString() {
         return "entity.Mot[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the listMots
+     */
+    public List<Listmot> getListMots() {
+        return listMots;
+    }
+
+    /**
+     * @param listMots the listMots to set
+     */
+    public void setListMots(List<Listmot> listMots) {
+        this.listMots = listMots;
     }
 
 }
