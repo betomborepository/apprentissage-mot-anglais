@@ -104,4 +104,11 @@ public class MotManager {
         
         return em.find(Mot.class, Integer.parseInt(id)); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public void update(Mot mot)
+    {
+        em.merge(mot);
+    }
+
+
 }

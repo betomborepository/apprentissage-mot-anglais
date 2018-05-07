@@ -13,6 +13,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -46,6 +48,7 @@ public class Mot implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "ANGLAIS")
     private String anglais;
@@ -60,15 +63,15 @@ public class Mot implements Serializable {
     @Column(name = "FRANCAIS")
     private String francais;
 
-    
-     @ManyToMany( mappedBy = "mots" ,cascade = { 
-        CascadeType.ALL       
+    @ManyToMany(mappedBy = "mots", cascade = {
+        CascadeType.ALL
     })
     @JoinTable(name = "mot_listmots",
-        joinColumns = @JoinColumn(name = "id_mot"),
-        inverseJoinColumns = @JoinColumn(name = "id_listmot")
-    )     
+            joinColumns = @JoinColumn(name = "id_mot"),
+            inverseJoinColumns = @JoinColumn(name = "id_listmot")
+    )
     private List<Listmot> listMots = new ArrayList<>();
+
     public Mot() {
     }
 
@@ -148,5 +151,5 @@ public class Mot implements Serializable {
     public String toString() {
         return "entity.Mot[ id=" + id + " ]";
     }
-    
+
 }

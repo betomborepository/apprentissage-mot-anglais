@@ -23,23 +23,21 @@ public class ListMotManager {
     private EntityManager em;
 
     public List<Listmot> getAllListMots() {
-       Query query = em.createNamedQuery("Listmot.findAll"); //To change body of generated methods, choose Tools | Templates.
+        Query query = em.createNamedQuery("Listmot.findAll"); //To change body of generated methods, choose Tools | Templates.
         return query.getResultList();
     }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
     public void persist(Object object) {
         em.persist(object);
     }
 
-    
     public Listmot getListMot(int idDetail) {
         return em.find(Listmot.class, idDetail);
     }
 
     public void update(Listmot listmot) {
-       em.merge(listmot); //To change body of generated methods, choose Tools | Templates.
+        em.merge(listmot); //To change body of generated methods, choose Tools | Templates.
     }
 }
