@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -17,10 +18,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Listmot.findByDescription", query = "SELECT l FROM Listmot l WHERE l.description = :description")
     , @NamedQuery(name = "Listmot.findByTitre", query = "SELECT l FROM Listmot l WHERE l.titre = :titre")})
 public class Listmot implements Serializable {
+
+    @OneToMany(mappedBy = "idListemot")
+    private Collection<Test> testCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -143,6 +149,15 @@ public class Listmot implements Serializable {
      */
     public void setMots(List<Mot> mots) {
         this.mots = mots;
+    }
+
+    @XmlTransient
+    public Collection<Test> getTestCollection() {
+        return testCollection;
+    }
+
+    public void setTestCollection(Collection<Test> testCollection) {
+        this.testCollection = testCollection;
     }
     
     
