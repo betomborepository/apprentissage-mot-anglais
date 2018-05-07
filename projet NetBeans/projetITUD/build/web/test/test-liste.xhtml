@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">
+
+            
+            <ui:define name="content">
+                <h3>Liste des tests disponibles</h3>
+                <p:dataTable var="test" value="#{testBean.allTests}">
+                    <p:column headerText="Titre">
+                        
+                        <h:outputLink value="test-detail.xhtml">
+                            <h:outputText value="#{test.titre}" />
+                            <f:param name="idtest" value="#{test.id}" />
+                        </h:outputLink>
+                    </p:column>
+                     <p:column headerText="Date de creation">
+                        <h:outputText value="#{test.dateCreation}" />
+                    </p:column>
+                     <p:column headerText="Date de modification">
+                        <h:outputText value="#{test.dateModification}" />
+                    </p:column>
+                </p:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
