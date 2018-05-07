@@ -12,10 +12,12 @@
         <f:viewAction action="#{listMotBean.initDetail()}"/>  
     </f:metadata>
     <body>
+        <h:form id="detailform">
+            <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">
 
-        <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">
+                <ui:define name="content">
 
-            <ui:define name="content"><h:form>
+                    <!-- <p:growl id="msg" showDetail="true" escape="false" />-->
                     <h3>
                         Titre :#{listMotBean.detailListMot.titre}
                     </h3>
@@ -24,12 +26,12 @@
                     </h3>
 
 
-                    <p:pickList value="#{listMotBean.motPickingList}" var="listM" 
-                                itemValue="#{listM}"  showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="#{listMotBean.motConverter}" >
+                    <p:pickList id="picking-list" value="#{listMotBean.motPickingList}" var="listM" 
+                                itemValue="#{listM}"   filterMatchMode="contains" converter="#{listMotBean.motConverter}" >
 
                         <f:facet name="sourceCaption">Disponible</f:facet>
                         <f:facet name="targetCaption">Selectionné</f:facet>
-                        <p:ajax event="transfer" listener="#{listMotBean.onTransfer}" />
+                        <p:ajax rendered="false" event="transfer" listener="#{listMotBean.onTransfer}" />
 
 
 
@@ -42,19 +44,19 @@
 
                     <p:button id="back" value="Revenir à la liste" outcome="list"/> 
                     <h:panelGroup id="rendered">
-                        <p:commandButton id="button" value="Enregistrer" action="#{listMotBean.update()}" />
                     </h:panelGroup>
 
-                </h:form>
+                    
 
 
 
 
 
 
-            </ui:define>
+                </ui:define>
 
-        </ui:composition>
+            </ui:composition>
+        </h:form>
 
     </body>
 </html>

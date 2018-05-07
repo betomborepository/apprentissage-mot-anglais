@@ -38,9 +38,9 @@
 
               
                     <h3>Formulair d'ajout</h3>
-                    <p:inputText binding="#{inputAnglais}"  placeholder='french' />
-                    <p:inputText binding="#{inputFrancais}" placeholder='english' />
-                    <h:commandButton action="#{motBean.ajouterMot(inputFrancais.value,inputAnglais.value)}"  value="Ajouter"  title="Ajouter" />
+                    <p:inputText value="#{motBean.inputEn}"  placeholder='francais' />
+                    <p:inputText value="#{motBean.inputFr}" placeholder='anglais' />
+                    <h:commandButton action="#{motBean.ajouterMot()}"  value="Ajouter"  title="Ajouter" />
                 </h:form>
             </ui:define>
 

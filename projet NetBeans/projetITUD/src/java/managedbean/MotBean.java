@@ -26,6 +26,8 @@ public class MotBean implements Serializable {
     @EJB
     private MotManager motManager;
     private Mot nouveauMot;
+    private String inputFr;
+    private String inputEn;
     /**
      * Creates a new instance of MotBean
      */
@@ -46,13 +48,20 @@ public class MotBean implements Serializable {
         motManager.update(mot);
     }
      
-     public String ajouterMot(String fr, String en)
+     public String ajouterMot()
      {
-        
+        if(this.inputEn.isEmpty() || this.inputFr.isEmpty())
+            return "";
+         
          Mot mot = new Mot();
-         mot.setFrancais(fr);
-         mot.setAnglais(en);
-         motManager.update(mot);
+         mot.setFrancais(this.getInputFr());
+         mot.setAnglais(this.getInputEn());
+         motManager.update(mot);         
+         listMots.add(mot);
+         
+         this.inputEn = "";
+         this.inputFr = "";
+         
          return "";
      }
 
@@ -68,5 +77,33 @@ public class MotBean implements Serializable {
      */
     public void setNouveauMot(Mot nouveauMot) {
         this.nouveauMot = nouveauMot;
+    }
+
+    /**
+     * @return the inputFr
+     */
+    public String getInputFr() {
+        return inputFr;
+    }
+
+    /**
+     * @param inputFr the inputFr to set
+     */
+    public void setInputFr(String inputFr) {
+        this.inputFr = inputFr;
+    }
+
+    /**
+     * @return the inputEn
+     */
+    public String getInputEn() {
+        return inputEn;
+    }
+
+    /**
+     * @param inputEn the inputEn to set
+     */
+    public void setInputEn(String inputEn) {
+        this.inputEn = inputEn;
     }
 }
