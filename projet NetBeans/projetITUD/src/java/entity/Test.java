@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -20,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author hp
+ * @author Matiasy
  */
 @Entity
 @Table(name = "TEST")
@@ -32,6 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Test.findByDateModification", query = "SELECT t FROM Test t WHERE t.dateModification = :dateModification")
     , @NamedQuery(name = "Test.findByTitre", query = "SELECT t FROM Test t WHERE t.titre = :titre")})
 public class Test implements Serializable {
+
+    @JoinColumn(name = "ID_LISTEMOT", referencedColumnName = "ID")
+    @ManyToOne
+    private Listmot idListemot;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -109,6 +115,14 @@ public class Test implements Serializable {
     @Override
     public String toString() {
         return "entity.Test[ id=" + id + " ]";
+    }
+
+    public Listmot getIdListemot() {
+        return idListemot;
+    }
+
+    public void setIdListemot(Listmot idListemot) {
+        this.idListemot = idListemot;
     }
     
 }
