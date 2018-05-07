@@ -16,22 +16,22 @@
 
 
         <div id="top" class="top">
-        
+
             <ui:insert name="top">Bienvenue à notre apprentissage de vocabulair</ui:insert>
             <h:form>
-            <p:megaMenu  style="margin-top:20px">
-                <p:menuitem icon="ui-icon-check" value="MOTS" url = "faces/mot/list.xhtml">                    
-                </p:menuitem>
-                <p:menuitem value="LIST DE MOTS" icon="ui-icon-document" url="faces/list/list.xhtml">                    
-                </p:menuitem>
-                 <p:menuitem value="TEST" icon="ui-icon-pencil" url ="test">                    
-                </p:menuitem>                  
-                <p:menuitem value="REVISION" icon="ui-icon-pencil" url="revision">                    
-                </p:menuitem>          
-            </p:megaMenu>
+                <p:megaMenu  style="margin-top:20px">
+                    <p:menuitem icon="ui-icon-check" value="MOTS" url = "/faces/mot/list.xhtml">                    
+                    </p:menuitem>
+                    <p:menuitem value="LIST DE MOTS" icon="ui-icon-document" url="/faces/list/list.xhtml">                    
+                    </p:menuitem>
+                    <p:menuitem value="TEST" icon="ui-icon-pencil" url ="test">                    
+                    </p:menuitem>                  
+                    <p:menuitem value="REVISION" icon="ui-icon-pencil" url="revision">                    
+                    </p:menuitem>          
+                </p:megaMenu>
             </h:form>
         </div>
-        
+
         <div>                      
             <div id="content" class="left_content">                
                 <ui:insert name="content">content</ui:insert>

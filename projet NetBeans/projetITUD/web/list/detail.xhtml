@@ -17,16 +17,19 @@
 
             <ui:define name="content"><h:form>
                     <h3>
-                        #{listMotBean.detailListMot.titre}
+                        Titre :#{listMotBean.detailListMot.titre}
+                    </h3>
+                    <h3>
+                        Description : #{listMotBean.detailListMot.description}
                     </h3>
 
-                    <p:pickList value="#{listMotBean.motPickingList}" var="listM" effect="bounce"
-                                itemValue="#{listM}" showSourceControls="true" showTargetControls="true" showCheckbox="true"
-                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="#{listMotBean.motConverter}" >
+
+                    <p:pickList value="#{listMotBean.motPickingList}" var="listM" 
+                                itemValue="#{listM}"  showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="#{listMotBean.motConverter}" >
 
                         <f:facet name="sourceCaption">Disponible</f:facet>
                         <f:facet name="targetCaption">Selectionné</f:facet>
-                        <p:ajax event="transfer" listener="#{listMotBean.onTransfer}"/>
+                        <p:ajax event="transfer" listener="#{listMotBean.onTransfer}" />
 
 
 
@@ -37,8 +40,11 @@
                     </p:pickList>
 
 
-                    <h:button id="back" value="Revenir à la liste" outcome="list"/> 
-                    <h:commandButton id="update" value="Enregistrer" action="#{listMotBean.update()}" actionListener="#{listMotBean.update}"/>
+                    <p:button id="back" value="Revenir à la liste" outcome="list"/> 
+                    <h:panelGroup id="rendered">
+                        <p:commandButton id="button" value="Enregistrer" action="#{listMotBean.update()}" />
+                    </h:panelGroup>
+
                 </h:form>
 
 

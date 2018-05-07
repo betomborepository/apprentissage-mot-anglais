@@ -7,11 +7,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <body>
         <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">          
-            <ui:define name="content">
+            <ui:define  name="content">
+                  <h:form id="form">
                 <p:dataTable id="cars1" var="mot" value="#{motBean.allMots}" editable="true" style="margin-bottom:20px">
                     <f:facet name="header">
                         mots
                     </f:facet>
+                    <p:ajax event="rowEdit" listener="#{motBean.onRowEdit}" />
+       
                     <p:column headerText="Francais">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{mot.francais}" /></f:facet>
@@ -30,14 +33,14 @@
                         <p:rowEditor />
                     </p:column>
                 </p:dataTable>
-                
-             
-                
-                <h:form>
-                <h3>Formulair d'ajout</h3>
-                    <p:inputText placeholder='french' />
-                    <p:inputText placeholder='english' />
-                    <p:commandButton actionListener="#{MotBean.addWord}"  value="Ajouter"  title="Ajouter" />
+
+
+
+              
+                    <h3>Formulair d'ajout</h3>
+                    <p:inputText binding="#{inputAnglais}"  placeholder='french' />
+                    <p:inputText binding="#{inputFrancais}" placeholder='english' />
+                    <h:commandButton action="#{motBean.ajouterMot(inputFrancais.value,inputAnglais.value)}"  value="Ajouter"  title="Ajouter" />
                 </h:form>
             </ui:define>
 
