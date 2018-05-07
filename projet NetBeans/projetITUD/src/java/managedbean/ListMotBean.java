@@ -41,55 +41,47 @@ public class ListMotBean implements Serializable {
     /**
      * Creates a new instance of ListMotBean
      */
-    private List <entity.Listmot> allListMots;
+    private List<entity.Listmot> allListMots;
     private Listmot detailListMot;
     private int idDetail;
     private DualListModel<Mot> motPickingList;
-    public ListMotBean() 
-    {    
+
+    public ListMotBean() {
     }
-    
-    
-       public List <entity.Listmot> getAllListMots()
-    {
-        if(allListMots == null)
-        {
+
+    public List<entity.Listmot> getAllListMots() {
+        if (allListMots == null) {
             allListMots = listMotManager.getAllListMots();
         }
         return allListMots;
     }
-       
-       
+
     /**
      * Cette fonction a génerer le lien du detail en fonction de l'objet Listmot
+     *
      * @param listmot
-     * @return  
+     * @return
      */
-    public String detail(Listmot listmot)
-    {
+    public String detail(Listmot listmot) {
         return "detail?faces-redirect=true&idlistmot=" + listmot.getId();
     }
-    
-    
-    public void initDetail()
-    {
+
+    public void initDetail() {
         this.setDetailListMot(listMotManager.getListMot(this.idDetail));
     }
 
-    
-    public void setMotPickingList(DualListModel<Mot> motPickingList)
-    {
+    public void setMotPickingList(DualListModel<Mot> motPickingList) {
         this.motPickingList = motPickingList;
     }
-    public DualListModel<Mot> getMotPickingList()
-    {
-        if(this.motPickingList == null)
-        {
-           this.motPickingList = generateMotPickingList();
+
+    public DualListModel<Mot> getMotPickingList() {
+        if (this.motPickingList == null) {
+            this.motPickingList = generateMotPickingList();
         }
-        
+
         return this.motPickingList;
     }
+
     /**
      * @return the detailListMot
      */
@@ -118,60 +110,47 @@ public class ListMotBean implements Serializable {
         this.idDetail = idDetail;
     }
 
-    
     /**
-     * génère une double list, un pour la list de mots disponible
-     * une autre pour ceux qui sont selectionnés
-     * @return 
+     * génère une double list, un pour la list de mots disponible une autre pour
+     * ceux qui sont selectionnés
+     *
+     * @return
      */
     private DualListModel<Mot> generateMotPickingList() {
         List<Mot> source = new ArrayList<Mot>();
         List<Mot> target = new ArrayList<Mot>();
-      
-        
+
         source = motManager.getExcludedMot(detailListMot.getMots());
         target = detailListMot.getMots();
-      
+
         this.motPickingList = new DualListModel<>(source, target);
-        return  this.motPickingList;                        
+        return this.motPickingList;
     }
-    
-    
-    public String update()
-    {
-        System.out.println( "testprint" + this.detail(this.detailListMot));
-       // this.detailListMot.setMots( this.motPickingList.getTarget());
-        
-        
+
+    public String update() {
+        System.out.println("testprint" + this.detail(this.detailListMot));
+        // this.detailListMot.setMots( this.motPickingList.getTarget());
+
         listMotManager.update(this.detailListMot);
         return this.detail(detailListMot);
     }
-    
-    
-    
-    public void onTransfer(TransferEvent event)
-    {
-       for(Object mot : event.getItems()) {
-            if (event.isAdd())
-            {
-                this.detailListMot.getMots().add((Mot)mot);
-            }else
-            {
-                this.getDetailListMot().getMots().remove((Mot)mot);
+
+    public void onTransfer(TransferEvent event) {
+        for (Object mot : event.getItems()) {
+            if (event.isAdd()) {
+                this.detailListMot.getMots().add((Mot) mot);
+            } else {
+                this.getDetailListMot().getMots().remove((Mot) mot);
             }
         }
     }
-    
-    
-    public void onPickListSelect(SelectEvent event)
-    {
+
+    public void onPickListSelect(SelectEvent event) {
         Mot mot = (Mot) event.getObject();
         this.detailListMot.getMots().add(mot);
     }
-    
-    
-    public Converter<Mot> getMotConverter()
-    {
+
+    public Converter<Mot> getMotConverter() {
         return new Converter<Mot>() {
             @Override
             public Mot getAsObject(FacesContext fc, UIComponent uic, String id) {
