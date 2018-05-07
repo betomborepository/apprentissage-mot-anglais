@@ -1,14 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
+        
         <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">
 
             <ui:define name="content">
-                content
+                <f:metadata>  
+                    <f:viewParam name="idTest" value="#{testDetailBean.idTest}"  
+                                 required="true"/>  
+                    <f:viewAction action="#{testDetailBean.loadTest}"/>  
+                 </f:metadata>
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Id:" for="id" />
+                            <h:inputText id="id" value="#{testDetailBean.test.id}" title="Id" required="true" requiredMessage="The Id field is required." disabled="true"/>
+                            <h:outputLabel value="DateCreation:" for="dateCreation" />
+                            <h:inputText id="dateCreation" value="#{testDetailBean.test.dateCreation}" title="DateCreation" disabled="true" >
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:inputText>
+                            <h:outputLabel value="DateModification:" for="dateModification" />
+                            <h:inputText id="dateModification" value="#{testDetailBean.test.dateModification}" title="DateModification" disabled="true">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:inputText>
+                            <h:outputLabel value="Titre:" for="titre" />
+                            <h:inputText id="titre" value="#{testDetailBean.test.titre}" title="Titre" disabled="true"/>
+                            <h:outputLabel value="Cree par" for="creepar" />
+                            <h:inputText id="creepar" value="#{testDetailBean.test.idUser.username}" title="Cree par" disabled="true"/>
+                            
+                        </h:panelGrid>
+                    </h:form>
+                </f:view>
+
             </ui:define>
 
         </ui:composition>

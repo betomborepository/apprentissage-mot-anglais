@@ -35,10 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Test.findByTitre", query = "SELECT t FROM Test t WHERE t.titre = :titre")})
 public class Test implements Serializable {
 
-    @JoinColumn(name = "ID_LISTEMOT", referencedColumnName = "ID")
-    @ManyToOne
-    private Listmot idListemot;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -52,6 +48,12 @@ public class Test implements Serializable {
     private Date dateModification;
     @Column(name = "TITRE")
     private String titre;
+    @JoinColumn(name = "ID_LISTEMOT", referencedColumnName = "ID")
+    @ManyToOne
+    private Listmot idListemot;
+    @JoinColumn(name = "ID_USER", referencedColumnName = "ID")
+    @ManyToOne
+    private Utilisateur idUser;
 
     public Test() {
     }
@@ -92,6 +94,22 @@ public class Test implements Serializable {
         this.titre = titre;
     }
 
+    public Listmot getIdListemot() {
+        return idListemot;
+    }
+
+    public void setIdListemot(Listmot idListemot) {
+        this.idListemot = idListemot;
+    }
+
+    public Utilisateur getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Utilisateur idUser) {
+        this.idUser = idUser;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,14 +133,6 @@ public class Test implements Serializable {
     @Override
     public String toString() {
         return "entity.Test[ id=" + id + " ]";
-    }
-
-    public Listmot getIdListemot() {
-        return idListemot;
-    }
-
-    public void setIdListemot(Listmot idListemot) {
-        this.idListemot = idListemot;
     }
     
 }
