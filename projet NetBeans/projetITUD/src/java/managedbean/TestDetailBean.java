@@ -208,6 +208,8 @@ public class TestDetailBean implements Serializable{
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Utilisateur uConnecte = new Utilisateur(771);
         Historiquetest historiqueT = new Historiquetest(new Date(), noteFinal, uConnecte);
+        //this.test = testManager.
+        historiqueT.setIdTest(test);
         System.out.println("Votre Note "+noteFinal);
         Integer newHistoID = testManager.saveHistory(historiqueT);
         

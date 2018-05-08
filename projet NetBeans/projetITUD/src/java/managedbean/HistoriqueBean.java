@@ -32,7 +32,8 @@ public class HistoriqueBean implements Serializable{
     public void loadHistorique(){
        // System.out.println("histo "+idHistorique);
         this.historique = historiqueManager.find(idHistorique);
-        System.out.println("titre "+historique.getIdTest().getTitre());
+        System.out.println("note "+historique.getNote());
+        //System.out.println("titre "+historique.getIdTest().getTitre());
     }
     public HistoriqueManager getListMotManager() {
         return historiqueManager;

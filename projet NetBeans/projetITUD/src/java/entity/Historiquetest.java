@@ -54,7 +54,7 @@ public class Historiquetest implements Serializable {
     private Utilisateur idUtilisateur;
 
     @JoinColumn(name = "ID_TEST", referencedColumnName = "ID")
-    @ManyToOne(fetch=FetchType.LAZY,cascade =   CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.LAZY)
     private Test idTest;
     
     public Historiquetest() {

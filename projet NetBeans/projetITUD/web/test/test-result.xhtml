@@ -16,10 +16,10 @@
                                  required="true"/>  
                     <f:viewAction action="#{historiqueBean.loadHistorique()}"/>  
                  </f:metadata>
-                <p:panel id="basic" header="Voici votre Resultat pour le test '#{historiqueBean.historique.idTest.titre}'" footer="#{historiqueBean.historique.note}/20" style="margin-bottom:20px">
+                <p:panel id="basic" header="Voici votre Resultat pour le test '#{historiqueBean.historique.idTest.titre}'" footer="Votre Note : #{historiqueBean.historique.note}/20" style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="10">                       
                         <h:outputText
-                            value="The story begins as Don Vito Corleone..." />
+                            value="" />
                     </h:panelGrid>
                 </p:panel>
             </ui:define>
