@@ -5,6 +5,7 @@
  */
 package managedbean;
 
+import static com.sun.javafx.logging.PulseLogger.addMessage;
 import entity.Test;
 import java.io.Serializable;
 import javax.inject.Named;
@@ -12,6 +13,7 @@ import javax.enterprise.context.Dependent;
 import javax.faces.view.ViewScoped;
 import session.TestManager;
 import javax.ejb.EJB;  
+import javax.faces.event.ActionEvent;
 /**
  *
  * @author Matiasy
@@ -21,6 +23,8 @@ import javax.ejb.EJB;
 public class TestDetailBean implements Serializable{
     private Test test;
     private Integer idTest;
+    Boolean sens ; 
+    String sensLabel;
     @EJB
     private TestManager testManager;
     /**
@@ -55,5 +59,32 @@ public class TestDetailBean implements Serializable{
     public void loadTest() {
         this.test = testManager.find(idTest);  
     }  
+    public void beginTest() {
+        this.test = testManager.find(idTest);
+        System.out.println("sens "+sens);
+        if(sens){
+            sensLabel="francais";
+        }else{
+            sensLabel="anglais";
+        }
+    }  
+     public Boolean getSens() {
+        return sens;
+    }
+
+    public void setSens(Boolean sens) {
+        this.sens = sens;
+    }
+
+    public String getSensLabel() {
+        return sensLabel;
+    }
+
+    public void setSensLabel(String sensLabel) {
+        this.sensLabel = sensLabel;
+    }
+    public void buttonAction(ActionEvent actionEvent) {
+        addMessage("Welcome to Primefaces!!");
+    }
     
 }

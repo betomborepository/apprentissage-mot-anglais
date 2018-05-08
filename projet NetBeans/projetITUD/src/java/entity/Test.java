@@ -50,12 +50,13 @@ public class Test implements Serializable {
     @Column(name = "TITRE")
     private String titre;
     @JoinColumn(name = "ID_LISTEMOT", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Listmot idListemot;
     @JoinColumn(name = "ID_USER", referencedColumnName = "ID")
     @ManyToOne(fetch=FetchType.LAZY)
     private Utilisateur idUser;
 
+ 
     public Test() {
     }
 
@@ -126,6 +127,8 @@ public class Test implements Serializable {
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
+   
 
     @Override
     public boolean equals(Object object) {
