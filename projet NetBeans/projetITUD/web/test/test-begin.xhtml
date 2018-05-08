@@ -18,12 +18,11 @@
                     <f:viewParam name="sens" value="#{testDetailBean.sens}"  
                                  required="true"/> 
                     <f:viewAction action="#{testDetailBean.beginTest}"/>  
-                 </f:metadata>
-                <h3>#{testDetailBean.test.titre} en #{testDetailBean.sensLabel}</h3>
+                </f:metadata>
                 <h:form>
                     <p:dataTable value="#{testDetailBean.test.idListemot.mots}" var="motsO" editable="true" style="margin-bottom:20px"  rowIndexVar="index">>
                         <f:facet name="header">
-                            #{testDetailBean.test.titre} en #{testDetailBean.sensLabel}
+                            Vous etes en train de faire le test '#{testDetailBean.test.titre}' en #{testDetailBean.sensLabel}
                         </f:facet>
                            <!--
                         <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs" />

@@ -8,8 +8,10 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +43,7 @@ public class Historiquetest implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Integer id;
     @Column(name = "DATE_TEST")
     @Temporal(TemporalType.DATE)
     private Date dateTest;
@@ -51,6 +53,10 @@ public class Historiquetest implements Serializable {
     @ManyToOne
     private Utilisateur idUtilisateur;
 
+    @JoinColumn(name = "ID_TEST", referencedColumnName = "ID")
+    @ManyToOne(fetch=FetchType.LAZY,cascade =   CascadeType.ALL)
+    private Test idTest;
+    
     public Historiquetest() {
     }
 
@@ -60,15 +66,15 @@ public class Historiquetest implements Serializable {
         this.setIdUtilisateur(idUtilisateur);
     }
 
-    public Historiquetest(String id) {
+    public Historiquetest(Integer id) {
         this.id = id;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -119,6 +125,14 @@ public class Historiquetest implements Serializable {
     @Override
     public String toString() {
         return "entity.Historiquetest[ id=" + id + " ]";
+    }
+
+    public Test getIdTest() {
+        return idTest;
+    }
+
+    public void setIdTest(Test idTest) {
+        this.idTest = idTest;
     }
     
 }

@@ -158,7 +158,7 @@ public class TestDetailBean implements Serializable{
         this.jugement = jugement;
     }
     // if(sens) then francais ELSE anglais
-    public void sauvegarderTest(){
+    public String sauvegarderTest(){
         int countReponseVrai = 0 ;
         
         List<Mot> listeMot = test.getIdListemot().getMots();
@@ -183,7 +183,9 @@ public class TestDetailBean implements Serializable{
         Utilisateur uConnecte = new Utilisateur(771);
         Historiquetest historiqueT = new Historiquetest(new Date(), noteFinal, uConnecte);
         System.out.println("Votre Note "+noteFinal);
-        testManager.saveHistory(historiqueT);
+        Integer newHistoID = testManager.saveHistory(historiqueT);
+        
+        return "test-result.xhtml?faces-redirect=true&idHistorique=" + newHistoID;
     }
     
     

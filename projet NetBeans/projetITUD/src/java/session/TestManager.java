@@ -43,8 +43,9 @@ public class TestManager {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void saveHistory(Historiquetest historiqueT) {
-        em.merge(historiqueT);
-        
+    public Integer saveHistory(Historiquetest historiqueT) {
+        em.persist(historiqueT);
+        em.flush();
+       return historiqueT.getId();
     }
 }
