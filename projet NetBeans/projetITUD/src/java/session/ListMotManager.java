@@ -6,6 +6,7 @@
 package session;
 
 import entity.Listmot;
+import entity.Mot;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -39,5 +40,9 @@ public class ListMotManager {
 
     public Listmot update(Listmot listmot) {
         return em.merge(listmot); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Listmot findByID(String id) {
+         return em.find(Listmot.class, Integer.parseInt(id)); //To change body of generated methods, choose Tools | Templates.
     }
 }

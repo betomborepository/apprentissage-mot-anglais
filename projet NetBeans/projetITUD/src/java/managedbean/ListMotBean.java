@@ -172,7 +172,7 @@ public class ListMotBean implements Serializable {
         this.detailListMot.getMots().add(mot);
     }
     
-    /*public Converter<Mot> getMotConverter() {
+    public Converter<Mot> getMotConverter() {
         return new Converter<Mot>() {
             @Override
             public Mot getAsObject(FacesContext fc, UIComponent uic, String id) {
@@ -184,7 +184,7 @@ public class ListMotBean implements Serializable {
                 return t.getId().toString(); //To change body of generated methods, choose Tools | Templates.
             }
         };
-    }*/
+    }
     
     
     public String ajouterListMot()
