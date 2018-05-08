@@ -75,6 +75,15 @@ public class Mot implements Serializable {
     public Mot() {  
     }
 
+    public Mot(Integer id, String anglais, String cle, Date dateCreation, Date dateModification, String francais) {
+        this.setId(id);
+        this.setAnglais(anglais);
+        this.setCle(cle);
+        this.setDateCreation(dateCreation);
+        this.setDateModification(dateModification);
+        this.setFrancais(francais);
+    }
+
     public Mot(Integer id) {
         this.id = id;
     }

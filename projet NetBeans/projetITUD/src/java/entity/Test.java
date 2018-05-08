@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -52,10 +53,19 @@ public class Test implements Serializable {
     @ManyToOne
     private Listmot idListemot;
     @JoinColumn(name = "ID_USER", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Utilisateur idUser;
 
     public Test() {
+    }
+
+    public Test(Integer id, Date dateCreation, Date dateModification, String titre, Listmot idListemot, Utilisateur idUser) {
+        this.setId(id);
+        this.setDateModification(dateModification);
+        this.setDateCreation(dateCreation);
+        this.setTitre(titre);
+        this.setIdListemot(idListemot);
+        this.setIdUser(idUser);
     }
 
     public Test(Integer id) {
