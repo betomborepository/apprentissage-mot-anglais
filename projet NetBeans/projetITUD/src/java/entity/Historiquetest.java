@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -38,13 +40,13 @@ public class Historiquetest implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID")
-    @Temporal(TemporalType.DATE)
-    private Date id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
     @Column(name = "DATE_TEST")
     @Temporal(TemporalType.DATE)
     private Date dateTest;
     @Column(name = "NOTE")
-    private Integer note;
+    private Double note;
     @JoinColumn(name = "ID_UTILISATEUR", referencedColumnName = "ID")
     @ManyToOne
     private Utilisateur idUtilisateur;
@@ -52,15 +54,21 @@ public class Historiquetest implements Serializable {
     public Historiquetest() {
     }
 
-    public Historiquetest(Date id) {
+    public Historiquetest( Date dateTest, Double note, Utilisateur idUtilisateur) {
+        this.setDateTest(dateTest);
+        this.setNote(note);
+        this.setIdUtilisateur(idUtilisateur);
+    }
+
+    public Historiquetest(String id) {
         this.id = id;
     }
 
-    public Date getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Date id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -72,11 +80,11 @@ public class Historiquetest implements Serializable {
         this.dateTest = dateTest;
     }
 
-    public Integer getNote() {
+    public Double getNote() {
         return note;
     }
 
-    public void setNote(Integer note) {
+    public void setNote(Double note) {
         this.note = note;
     }
 
