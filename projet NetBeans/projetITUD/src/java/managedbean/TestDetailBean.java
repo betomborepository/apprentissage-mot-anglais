@@ -199,7 +199,7 @@ public class TestDetailBean implements Serializable{
     
     
    
-    public Converter <Listmot> getListMotConvert()
+    /*public Converter <Listmot> getListMotConvert()
     {
         return new Converter<Listmot>() {
             @Override
@@ -212,5 +212,5 @@ public class TestDetailBean implements Serializable{
                 return t.getId().toString(); //To change body of generated methods, choose Tools | Templates.
             }
         };
-    }
+    }*/
 }

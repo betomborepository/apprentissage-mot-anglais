@@ -31,15 +31,6 @@ import javax.persistence.PersistenceContext;
 @Singleton
 @LocalBean
 @Startup
-@DataSourceDefinition (
-    className="org.apache.derby.jdbc.ClientDataSource",
-    name="java:app/jdbc/apprentissageanglais",
-    serverName="localhost",
-    portNumber=1527,
-    user="projetITUD", // nom et
-    password="projetITUD", // mot de passe que vous avez donnés lors de la création de la base de données
-    databaseName="apprentissageanglais"
-)
 public class InitBean {
 
     @PersistenceContext(unitName = "projetITUDPU")
