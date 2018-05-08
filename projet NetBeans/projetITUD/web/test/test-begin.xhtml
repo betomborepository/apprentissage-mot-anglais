@@ -56,9 +56,9 @@
                             </c:choose>
                         </p:column>    
                         <p:column headerText="">
-                            <p:commandButton value="Afficher reponse" actionListener="#{testDetailBean.toggleAnswer}" styleClass="ui-priority-primary" >
-                               <f:attribute name="index" value="#{index}" /> 
-                            </p:commandButton>
+                            <h:commandButton action="#{user.editAction}" >
+                                <f:setPropertyActionListener target="#{user.action}" value="delete" />
+                            </h:commandButton>
                         </p:column>
                         <p:column headerText="">
                             <p:selectOneMenu id="jugement" style="width:125px" value="#{testDetailBean.jugement[index]}">
