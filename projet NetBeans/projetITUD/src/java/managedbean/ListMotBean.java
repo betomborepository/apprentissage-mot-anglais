@@ -190,7 +190,7 @@ public class ListMotBean implements Serializable {
       
     
     
-    public Converter<Mot> getMotConverter() {
+    /*public Converter<Mot> getMotConverter() {
         return new Converter<Mot>() {
             @Override
             public Mot getAsObject(FacesContext fc, UIComponent uic, String id) {
@@ -203,7 +203,7 @@ public class ListMotBean implements Serializable {
             }
         };
     }
-    
+    */
     
     public String ajouterListMot()
     {
