@@ -37,7 +37,7 @@ public class ListMotManager {
         return em.find(Listmot.class, idDetail);
     }
 
-    public void update(Listmot listmot) {
-        em.merge(listmot); //To change body of generated methods, choose Tools | Templates.
+    public Listmot update(Listmot listmot) {
+        return em.merge(listmot); //To change body of generated methods, choose Tools | Templates.
     }
 }
