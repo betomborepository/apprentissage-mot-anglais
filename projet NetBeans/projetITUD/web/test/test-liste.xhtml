@@ -16,10 +16,9 @@
                 <p:dataTable var="test" value="#{testBean.allTests}">
                     <p:column headerText="Titre">
                         
-                        <h:outputLink value="test-detail.xhtml">
                             <h:outputText value="#{test.titre}" />
-                            <f:param name="idTest" value="#{test.id}" />
-                        </h:outputLink>
+                          
+                       
                     </p:column>
                      <p:column headerText="Date de creation">
                         <h:outputText value="#{test.dateCreation}" />
@@ -27,7 +26,30 @@
                      <p:column headerText="Date de modification">
                         <h:outputText value="#{test.dateModification}" />
                     </p:column>
+                    <p:column>
+                        <h:link value='modifier' outcome="#{testBean.testModifUrl(test)}"/>
+                    </p:column>
+                    <p:column headerText="">
+                     <h:outputLink value="test-detail.xhtml">
+                            <h:outputText value="Passer le test" />
+                            <f:param name="idTest" value="#{test.id}" />
+                        </h:outputLink>
+                    </p:column>
                 </p:dataTable>
+                
+                
+                 <h:form>
+                
+                         <h3>Formulair d'ajout </h3>
+                    <!-- <p:growl id="msg" showDetail="true" escape="false" />-->
+                    <h3>
+                        <p:inputText value="#{testBean.inputTitre}"  placeholder='Titre' />
+                 
+                    </h3>
+                                                                                 
+                    <h:commandButton action="#{testBean.ajouterTest()}"  value="Ajouter"  title="Ajouter" />
+        
+                </h:form>
             </ui:define>
 
         </ui:composition>

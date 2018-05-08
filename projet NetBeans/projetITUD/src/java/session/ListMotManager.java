@@ -45,4 +45,6 @@ public class ListMotManager {
     public Listmot findByID(String id) {
          return em.find(Listmot.class, Integer.parseInt(id)); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 }

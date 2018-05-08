@@ -163,7 +163,13 @@ public class ListMotBean implements Serializable {
      * @return
      */
     public void onTransfer(TransferEvent event) {
-        StringBuilder builder = new StringBuilder();                                
+         for (Mot mot : ((List<Mot>) event.getItems())) {
+            if (event.isAdd()) {
+                this.detailListMot.getMots().add(mot);
+            } else {
+                this.getDetailListMot().getMots().remove(mot);
+            }
+        }
         this.update();              
     }
     

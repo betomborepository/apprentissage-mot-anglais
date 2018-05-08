@@ -14,6 +14,7 @@ import entity.Utilisateur;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Named;
@@ -88,8 +89,33 @@ public class TestDetailBean implements Serializable{
      * @return the pickingList
      */
     public DualListModel<Listmot> getPickingList() {
+        if(pickingList == null)
+        {
+            this.pickingList = generatePickingList();
+        }
         return pickingList;
     }
+    
+    /**
+     * 
+     * @return DualListMoedl<Listmot> 
+     */
+    public DualListModel<Listmot> generatePickingList()
+    {
+        List<Listmot> source = new ArrayList<Listmot>();
+        List<Listmot> target = new ArrayList<Listmot>();
+        
+        source = listMotManager.getAllListMots();
+        
+        if(this.test.getIdListemot() != null)
+        {            
+            target.add(this.test.getIdListemot());
+            source.remove(this.test.getIdListemot());
+        }
+        this.pickingList = new DualListModel<>(source, target);
+        return this.pickingList;
+    }
+    
 
     /**
      * @param pickingList the pickingList to set
