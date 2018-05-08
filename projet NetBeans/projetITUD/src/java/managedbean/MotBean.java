@@ -11,6 +11,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import org.primefaces.event.RowEditEvent;
 import session.MotManager;
@@ -119,10 +121,21 @@ public class MotBean implements Serializable {
      */
     public String enleverMot(Mot mot)
     {
-        if(!mot.getListMots().isEmpty())
+        try {
+             if(!mot.getListMots().isEmpty())
             return null;
         this.listMots.remove(mot);        
         motManager.remove(mot);
+        } catch (Exception e) 
+        {
+                   FacesMessage msg = new FacesMessage();
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+        msg.setSummary("Erreur de suppression");
+        msg.setDetail("Vous ne pouvez pas supprimer cet mot car il a été utilisé par une liste");
+         
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+       
         
         return null;
     }

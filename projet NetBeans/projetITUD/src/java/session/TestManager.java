@@ -40,7 +40,7 @@ public class TestManager {
 
 
     public Test update(Test test) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return em.merge(test); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void saveHistory(Historiquetest historiqueT) {
