@@ -6,6 +6,7 @@
 package managedbean;
 
 import entity.Listmot;
+import static com.sun.javafx.logging.PulseLogger.addMessage;
 import entity.Test;
 import java.io.Serializable;
 import javax.inject.Named;
@@ -19,6 +20,7 @@ import javax.faces.convert.Converter;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 import session.ListMotManager;
+import javax.faces.event.ActionEvent;
 /**
  *
  * @author Matiasy
@@ -32,6 +34,8 @@ public class TestDetailBean implements Serializable{
     private Test test;
     private Integer idTest;
     private DualListModel<Listmot> pickingList;
+    Boolean sens ; 
+    String sensLabel;
     @EJB
     private TestManager testManager;
    
@@ -81,6 +85,33 @@ public class TestDetailBean implements Serializable{
      */
     public void setPickingList(DualListModel<Listmot> pickingList) {
         this.pickingList = pickingList;
+    }
+    public void beginTest() {
+        this.test = testManager.find(idTest);
+        System.out.println("sens "+sens);
+        if(sens){
+            sensLabel="francais";
+        }else{
+            sensLabel="anglais";
+        }
+    }  
+     public Boolean getSens() {
+        return sens;
+    }
+
+    public void setSens(Boolean sens) {
+        this.sens = sens;
+    }
+
+    public String getSensLabel() {
+        return sensLabel;
+    }
+
+    public void setSensLabel(String sensLabel) {
+        this.sensLabel = sensLabel;
+    }
+    public void buttonAction(ActionEvent actionEvent) {
+        addMessage("Welcome to Primefaces!!");
     }
     
     

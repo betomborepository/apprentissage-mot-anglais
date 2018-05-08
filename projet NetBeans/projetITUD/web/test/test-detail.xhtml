@@ -35,7 +35,16 @@
                             <h:inputText id="titre" value="#{testDetailBean.test.titre}" title="Titre" disabled="true"/>
                             <h:outputLabel value="Cree par" for="creepar" />
                             <h:inputText id="creepar" value="#{testDetailBean.test.idUser.username}" title="Cree par" disabled="true"/>
-                            
+                            <h:outputLink value="test-begin.xhtml">
+                                <h:outputText value="Commencer le test en anglais" />
+                                <f:param name="idTest" value="#{testDetailBean.test.id}" />
+                                <f:param name="sens" value="false" />
+                            </h:outputLink>
+                              <h:outputLink value="test-begin.xhtml">
+                                <h:outputText value="Commencer le test en francais" />
+                                <f:param name="idTest" value="#{testDetailBean.test.id}" />
+                                <f:param name="sens" value="true" />
+                            </h:outputLink>
                         </h:panelGrid>
                     </h:form>
                 </f:view>
