@@ -57,13 +57,16 @@ public class Historiquetest implements Serializable {
     @ManyToOne(fetch=FetchType.LAZY)
     private Test idTest;
     
+    @Column(name = "SENS")
+    Boolean sens;
     public Historiquetest() {
     }
 
-    public Historiquetest( Date dateTest, Double note, Utilisateur idUtilisateur) {
+    public Historiquetest( Date dateTest, Double note, Utilisateur idUtilisateur,Boolean sens) {
         this.setDateTest(dateTest);
         this.setNote(note);
         this.setIdUtilisateur(idUtilisateur);
+        this.setSens(sens);
     }
 
     public Historiquetest(Integer id) {
@@ -133,6 +136,14 @@ public class Historiquetest implements Serializable {
 
     public void setIdTest(Test idTest) {
         this.idTest = idTest;
+    }
+
+    public Boolean getSens() {
+        return sens;
+    }
+
+    public void setSens(Boolean sens) {
+        this.sens = sens;
     }
     
 }

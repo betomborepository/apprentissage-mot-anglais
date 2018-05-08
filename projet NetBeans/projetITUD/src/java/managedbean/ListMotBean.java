@@ -202,8 +202,8 @@ public class ListMotBean implements Serializable {
                 return t.getId().toString(); //To change body of generated methods, choose Tools | Templates.
             }
         };
-    }
-    */
+    }*/
+    
     
     public String ajouterListMot()
     {
