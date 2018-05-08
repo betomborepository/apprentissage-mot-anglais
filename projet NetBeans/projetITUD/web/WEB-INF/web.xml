@@ -21,4 +21,5 @@
     <welcome-file-list>
         <welcome-file>faces/list/list.xhtml</welcome-file>
     </welcome-file-list>
+   
 </web-app>
