@@ -41,9 +41,7 @@ public class ListMotBean implements Serializable {
     @EJB
     private ListMotManager listMotManager;
 
-    /**
-     * Creates a new instance of ListMotBean
-     */
+   
     private List<entity.Listmot> allListMots;
     private Listmot detailListMot;
     private int idDetail;
@@ -51,9 +49,11 @@ public class ListMotBean implements Serializable {
     private String inputDescription;
     private String inputTitre;
     
+
     public ListMotBean() {
     }
     
+
     public List<entity.Listmot> getAllListMots() {
         if (allListMots == null) {
             allListMots = listMotManager.getAllListMots();
@@ -71,14 +71,23 @@ public class ListMotBean implements Serializable {
         return "detail?faces-redirect=true&idlistmot=" + listmot.getId();
     }
     
+    /**
+     * Cette fonction  initialise l'entity Listmot  en utilisant l'id obtenu dans le GET parameter 
+     *  
+     * 
+     * 
+     */
     public void initDetail() {
         this.setDetailListMot(listMotManager.getListMot(this.idDetail));
     }
     
+
     public void setMotPickingList(DualListModel<Mot> motPickingList) {
         this.motPickingList = motPickingList;
     }
     
+  
+
     public DualListModel<Mot> getMotPickingList() {
         if (this.motPickingList == null) {
             this.motPickingList = generateMotPickingList();
@@ -132,6 +141,13 @@ public class ListMotBean implements Serializable {
         return this.motPickingList;
     }
     
+
+     /**
+     * génère une double list, un pour la list de mots disponible une autre pour
+     * ceux qui sont selectionnés
+     *
+     * @return
+     */
     public String update() {
         System.out.println("testprint" + this.detail(this.detailListMot));
         // this.detailListMot.setMots( this.motPickingList.getTarget());
@@ -140,37 +156,33 @@ public class ListMotBean implements Serializable {
         return this.detail(detailListMot);
     }
     
+
+      /**
+     *  Cette fonction ajax est appelé quand il y a un transfert de mot dans le picking list
+     *  Elle update le detailListMot par le nouveau mot ajouté    
+     * @return
+     */
     public void onTransfer(TransferEvent event) {
-        StringBuilder builder = new StringBuilder();
-        
-        if (event.isAdd()) {
-            builder.append("Les mots suivants ont été ajoutés");
-        } else {
-            builder.append("Les mots suivants ont été retirés");
-        }
-        for (Mot mot : ((List<Mot>) event.getItems())) {
-            if (event.isAdd()) {
-                this.detailListMot.getMots().add(mot);
-                builder.append(mot.getFrancais()).append("<br />");
-            } else {
-                this.getDetailListMot().getMots().remove(mot);
-                builder.append(mot.getFrancais()).append("<br />");                
-            }
-        }
-        
-        this.update();
-        FacesMessage msg = new FacesMessage();
-        msg.setSeverity(FacesMessage.SEVERITY_INFO);
-        msg.setSummary("Items Transferred");
-        msg.setDetail(builder.toString());
-        
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        StringBuilder builder = new StringBuilder();                                
+        this.update();              
     }
     
+
     public void onPickListSelect(SelectEvent event) {
         Mot mot = (Mot) event.getObject();
         this.detailListMot.getMots().add(mot);
     }
+    
+
+    /**
+    
+        Retourn le converter pour le picking list de prime face
+
+        @return  Converter<Mot>
+    
+     */
+      
+    
     
     public Converter<Mot> getMotConverter() {
         return new Converter<Mot>() {

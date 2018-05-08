@@ -45,6 +45,9 @@ public class InitBean {
     @PersistenceContext(unitName = "projetITUDPU")
     private EntityManager em;
 
+    /**
+        Initialise les donnés par défaut qui serviront de donnés de test pour les utilisateurs
+     */
     @PostConstruct
     public void Init()
     {

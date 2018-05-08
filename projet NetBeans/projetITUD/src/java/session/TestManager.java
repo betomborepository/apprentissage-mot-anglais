@@ -35,8 +35,8 @@ public class TestManager {
     {
          return em.find(Test.class, id);
     }
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+
+
 
     public Test update(Test test) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

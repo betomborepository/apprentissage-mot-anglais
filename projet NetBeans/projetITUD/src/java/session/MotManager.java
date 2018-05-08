@@ -42,6 +42,11 @@ public class MotManager {
         em.persist(object);
     }
 
+
+    /**
+        Retourn la liste de mots en retirant ceux qui sont en argument
+        @return List<Mot>
+     */
     public List<Mot> getExcludedMot(List<Mot> mots) {
 
         String listId = formatMotToListID(mots);
@@ -49,6 +54,9 @@ public class MotManager {
         return query.getResultList();
     }
 
+    /**
+        Génère une clause where d'une requête SQL qui  permet de faire filtre par rapport à une list d'IDs
+     */
     private String formatMotToListID(List<Mot> mots) {
         if (mots.isEmpty()) {
             return "";
@@ -63,25 +71,25 @@ public class MotManager {
 
         listID += ")";
 
-//To change body of generated methods, choose Tools | Templates.
         return listID;
     }
 
     public Mot findByID(String id) {
 
-        return em.find(Mot.class, Integer.parseInt(id)); //To change body of generated methods, choose Tools | Templates.
+        return em.find(Mot.class, Integer.parseInt(id)); 
     }
 
     public void update(Mot mot) {
         em.merge(mot);
     }
 
+
     public void remove(Mot mot) {
         if(em.contains(mot))
         {
             mot = em.merge(mot);
         }
-        em.remove(mot); //To change body of generated methods, choose Tools | Templates.
+        em.remove(mot); 
     }
 
 }

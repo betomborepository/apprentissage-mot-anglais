@@ -50,6 +50,11 @@ public class MotBean implements Serializable {
         motManager.update(mot);
     }
      
+
+     /**
+        Ajoute un mot dans la base et met ajour le datatable de primeface
+        @return 
+      */
      public String ajouterMot()
      {
         if(this.inputEn.isEmpty() || this.inputFr.isEmpty())
@@ -109,7 +114,9 @@ public class MotBean implements Serializable {
         this.inputEn = inputEn;
     }
     
-    
+    /**
+        Supprime un mot dans la base et le retire du datatable de primeface
+     */
     public String enleverMot(Mot mot)
     {
         if(!mot.getListMots().isEmpty())
