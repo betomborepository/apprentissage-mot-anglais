@@ -72,6 +72,14 @@ public class Listmot implements Serializable {
         this.id = id;
     }
 
+    public Listmot(Integer id, Date dateCreation, Date dateModification, String description, String titre) {
+        this.setId(id);
+        this.setDateCreation(dateCreation);
+        this.setDateModification(dateModification);
+        this.setDescription(description);
+        this.setTitre(titre);
+    }
+
     public Integer getId() {
         return id;
     }

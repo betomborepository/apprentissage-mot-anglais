@@ -60,6 +60,14 @@ public class Utilisateur implements Serializable {
         this.id = id;
     }
 
+    public Utilisateur(Integer id, Date dateCreation, Date dateModification, String type, String username) {
+        this.setId(id);
+        this.setDateCreation(dateCreation);
+        this.setDateModification(dateModification);
+        this.setType(type);
+        this.setUsername(username);
+    }
+    
     public Integer getId() {
         return id;
     }
