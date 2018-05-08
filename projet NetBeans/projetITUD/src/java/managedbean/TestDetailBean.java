@@ -7,8 +7,15 @@ package managedbean;
 
 import entity.Listmot;
 import static com.sun.javafx.logging.PulseLogger.addMessage;
+import entity.Historiquetest;
+import entity.Mot;
 import entity.Test;
+import entity.Utilisateur;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.view.ViewScoped;
@@ -36,6 +43,10 @@ public class TestDetailBean implements Serializable{
     private DualListModel<Listmot> pickingList;
     Boolean sens ; 
     String sensLabel;
+    Boolean[] reponseVisibility;
+    String[]reponseTapee;
+    Boolean[] jugement;
+    int motSize = 0;
     @EJB
     private TestManager testManager;
    
@@ -89,12 +100,20 @@ public class TestDetailBean implements Serializable{
     public void beginTest() {
         this.test = testManager.find(idTest);
         System.out.println("sens "+sens);
+        initParam();
         if(sens){
             sensLabel="francais";
         }else{
             sensLabel="anglais";
         }
     }  
+    private void initParam()
+    {
+         motSize = test.getIdListemot().getMots().size();
+        reponseVisibility = new Boolean[motSize];
+        reponseTapee = new String[motSize];
+        jugement = new Boolean[motSize];
+    }
      public Boolean getSens() {
         return sens;
     }
@@ -110,8 +129,61 @@ public class TestDetailBean implements Serializable{
     public void setSensLabel(String sensLabel) {
         this.sensLabel = sensLabel;
     }
-    public void buttonAction(ActionEvent actionEvent) {
-        addMessage("Welcome to Primefaces!!");
+    public void toggleAnswer(ActionEvent e) {
+        Integer i = (Integer)e.getComponent().getAttributes().get("index");
+        this.reponseVisibility[i]=!this.reponseVisibility[i];
+    }
+
+    public Boolean[] getReponseVisibility() {
+        return reponseVisibility;
+    }
+
+    public void setReponseVisibility(Boolean[] reponseVisibility) {
+        this.reponseVisibility = reponseVisibility;
+    }
+    public String[] getReponseTapee() {
+        return reponseTapee;
+    }
+
+    public void setReponseTapee(String[] reponseTapee) {
+        this.reponseTapee = reponseTapee;
+    }
+
+
+    public Boolean[] getJugement() {
+        return jugement;
+    }
+
+    public void setJugement(Boolean[] jugement) {
+        this.jugement = jugement;
+    }
+    // if(sens) then francais ELSE anglais
+    public void sauvegarderTest(){
+        int countReponseVrai = 0 ;
+        
+        List<Mot> listeMot = test.getIdListemot().getMots();
+        for(int i=0;i<motSize;i++)
+        {
+            if(!sens && listeMot.get(i).getFrancais().equals(reponseTapee[i])){
+                countReponseVrai++;
+            }
+            if(sens && listeMot.get(i).getAnglais().equals(reponseTapee[i])){
+                countReponseVrai++;
+            }
+        }
+        double notation = 20;
+        double noteParReponseVrai = notation/motSize;
+        double noteFinal = 0;
+        if(countReponseVrai==motSize){
+            noteFinal = notation;
+        }else{
+            noteFinal = countReponseVrai*noteParReponseVrai;
+        }
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Utilisateur uConnecte = new Utilisateur(771);
+        Historiquetest historiqueT = new Historiquetest(new Date(), noteFinal, uConnecte);
+        System.out.println("Votre Note "+noteFinal);
+        testManager.saveHistory(historiqueT);
     }
     
     

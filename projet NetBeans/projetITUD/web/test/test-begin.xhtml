@@ -20,58 +20,60 @@
                     <f:viewAction action="#{testDetailBean.beginTest}"/>  
                  </f:metadata>
                 <h3>#{testDetailBean.test.titre} en #{testDetailBean.sensLabel}</h3>
-                <p:dataTable value="#{testDetailBean.test.idListemot.mots}" var="motsO" editable="true" style="margin-bottom:20px">
-                    <f:facet name="header">
-                        #{testDetailBean.test.titre} en #{testDetailBean.sensLabel}
-                    </f:facet>
-                       <!--
-                    <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs" />
-                    <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":form:msgs" />
-                     -->        
-                    <p:column headerText="Mot">
-                        <p:cellEditor>
+                <h:form>
+                    <p:dataTable value="#{testDetailBean.test.idListemot.mots}" var="motsO" editable="true" style="margin-bottom:20px"  rowIndexVar="index">>
+                        <f:facet name="header">
+                            #{testDetailBean.test.titre} en #{testDetailBean.sensLabel}
+                        </f:facet>
+                           <!--
+                        <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs" />
+                        <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":form:msgs" />
+                         -->        
+                        <p:column headerText="Mot">
+                            <p:cellEditor>
+                                <c:choose>
+                                    <c:when test="#{testDetailBean.sens}">
+                                       <f:facet name="output"><h:outputText value="#{motsO.francais}" /></f:facet>
+                                    </c:when>
+                                    <c:otherwise>
+                                       <f:facet name="output"><h:outputText value="#{motsO.anglais}" /></f:facet>
+                                    </c:otherwise>
+                                </c:choose>
+                                <f:facet name="input"><p:inputText id="modelInput" value="#{motsO.francais}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+
+                        </p:column>
+                        <p:column headerText="Reponse">
+                            <p:inputText value="#{testDetailBean.reponseTapee[index]}"/>                        
+                        </p:column>
+                       <p:column headerText="Reponse cache">
                             <c:choose>
                                 <c:when test="#{testDetailBean.sens}">
-                                   <f:facet name="output"><h:outputText value="#{motsO.francais}" /></f:facet>
+                                    <h:outputText value="#{motsO.anglais}" rendered="#{testDetailBean.reponseVisibility[index]}" />
                                 </c:when>
                                 <c:otherwise>
-                                   <f:facet name="output"><h:outputText value="#{motsO.anglais}" /></f:facet>
+                                   <h:outputText value="#{motsO.francais}" rendered="#{testDetailBean.reponseVisibility[index]}"/>
                                 </c:otherwise>
                             </c:choose>
-                            <f:facet name="input"><p:inputText id="modelInput" value="#{motsO.francais}" style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                        
-                    </p:column>
-                    <p:column headerText="Reponse">
-                       <p:inputText />                        
-                    </p:column>
-                   <p:column headerText="Reponse cache">
-                        <c:choose>
-                            <c:when test="#{testDetailBean.sens}">
-                                <h:outputText value="#{motsO.anglais}" />
-                            </c:when>
-                            <c:otherwise>
-                               <h:outputText value="#{motsO.francais}" />
-                            </c:otherwise>
-                        </c:choose>
-                    </p:column>    
-                    <p:column headerText="">
-                        <p:growl id="growl" life="2000" />
-                        <p:commandButton value="Afficher reponse" id="ajax" update="growl" actionListener="#{testDetailBean.buttonAction}" styleClass="ui-priority-primary" />
-                    </p:column>
-                    <p:column headerText="">
-                        <p:selectOneMenu id="jugement" style="width:125px">
-                            <f:selectItem itemLabel="C est vrai" itemValue="true" />
-                            <f:selectItem itemLabel="C est faux" itemValue="false" />
-                        </p:selectOneMenu>
-                    </p:column>
-                     
-
-
-                    <p:column style="width:32px">
-                        <p:rowEditor />
-                    </p:column>
-                </p:dataTable>
+                        </p:column>    
+                        <p:column headerText="">
+                            <p:growl id="growl" life="2000" />
+                            <p:commandButton value="Afficher reponse" actionListener="#{testDetailBean.toggleAnswer}" styleClass="ui-priority-primary" >
+                               <f:attribute name="index" value="#{index}" /> 
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="">
+                            <p:selectOneMenu id="jugement" style="width:125px" value="#{testDetailBean.jugement[index]}">
+                                <f:selectItem itemLabel="C est vrai" itemValue="true" />
+                                <f:selectItem itemLabel="C est faux" itemValue="false" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column style="width:32px">
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="Sauvegarder" icon="ui-icon-check" action="#{testDetailBean.sauvegarderTest}"/>
+                </h:form>
             </ui:define>
                 
         </ui:composition>
