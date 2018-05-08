@@ -26,6 +26,22 @@
                         <h:link value="detail" outcome="#{listMotBean.detail(listmot)}" />
                     </p:column>
                 </p:dataTable>
+                
+                
+                <h:form>
+                
+                         <h3>Formulair d'ajout</h3>
+                    <!-- <p:growl id="msg" showDetail="true" escape="false" />-->
+                    <h3>
+                        <p:inputText value="#{listMotBean.inputTitre}"  placeholder='Titre' />
+                 
+                    </h3>
+                    <h3>
+                        <p:inputText value="#{listMotBean.inputDescription}"  placeholder='Description' />                 
+                    </h3>                                                              
+                    <h:commandButton action="#{listMotBean.ajouterListMot()}"  value="Ajouter"  title="Ajouter" />
+        
+                </h:form>
             </ui:define>
 
         </ui:composition>

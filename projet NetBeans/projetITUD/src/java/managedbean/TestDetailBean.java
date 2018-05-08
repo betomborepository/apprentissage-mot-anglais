@@ -5,6 +5,7 @@
  */
 package managedbean;
 
+import entity.Listmot;
 import static com.sun.javafx.logging.PulseLogger.addMessage;
 import entity.Historiquetest;
 import entity.Mot;
@@ -20,6 +21,12 @@ import javax.enterprise.context.Dependent;
 import javax.faces.view.ViewScoped;
 import session.TestManager;
 import javax.ejb.EJB;  
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
+import session.ListMotManager;
 import javax.faces.event.ActionEvent;
 /**
  *
@@ -28,8 +35,12 @@ import javax.faces.event.ActionEvent;
 @Named(value = "testDetailBean")
 @ViewScoped
 public class TestDetailBean implements Serializable{
+
+    @EJB
+    private ListMotManager listMotManager;
     private Test test;
     private Integer idTest;
+    private DualListModel<Listmot> pickingList;
     Boolean sens ; 
     String sensLabel;
     Boolean[] reponseVisibility;
@@ -38,6 +49,8 @@ public class TestDetailBean implements Serializable{
     int motSize = 0;
     @EJB
     private TestManager testManager;
+   
+    
     /**
      * Creates a new instance of TestDetailBean
      */
@@ -70,6 +83,20 @@ public class TestDetailBean implements Serializable{
     public void loadTest() {
         this.test = testManager.find(idTest);  
     }  
+
+    /**
+     * @return the pickingList
+     */
+    public DualListModel<Listmot> getPickingList() {
+        return pickingList;
+    }
+
+    /**
+     * @param pickingList the pickingList to set
+     */
+    public void setPickingList(DualListModel<Listmot> pickingList) {
+        this.pickingList = pickingList;
+    }
     public void beginTest() {
         this.test = testManager.find(idTest);
         System.out.println("sens "+sens);
@@ -159,4 +186,31 @@ public class TestDetailBean implements Serializable{
         testManager.saveHistory(historiqueT);
     }
     
+    
+    
+    public void onChoseListMot(TransferEvent event)
+    {
+        if(event.isRemove())
+                return;
+       Listmot listmot = (Listmot) event.getItems().get(0);
+       this.test.setIdListemot(listmot);
+        testManager.update(test);
+    }
+    
+    
+   
+    public Converter <Listmot> getListMotConvert()
+    {
+        return new Converter<Listmot>() {
+            @Override
+            public Listmot getAsObject(FacesContext fc, UIComponent uic, String id) {
+              return  listMotManager.findByID(id) ; //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public String getAsString(FacesContext fc, UIComponent uic, Listmot t) {
+                return t.getId().toString(); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+    }
 }

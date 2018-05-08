@@ -7,51 +7,45 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <f:metadata>  
-        <f:viewParam name="idlistmot" value="#{listMotBean.idDetail}"  
-                     required="true"/>  
-        <f:viewAction action="#{listMotBean.initDetail()}"/>  
+        <f:metadata>  
+            <f:viewParam name="idTest" value="#{testDetailBean.idTest}"  
+                         required="true"/>  
+            <f:viewAction action="#{testDetailBean.loadTest}"/>  
+        </f:metadata>
     </f:metadata>
     <body>
         <h:form id="detailform">
             <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">
 
                 <ui:define name="content">
-
-                    <!-- <p:growl id="msg" showDetail="true" escape="false" />-->
                     <h3>
-                        Titre :#{listMotBean.detailListMot.titre}
+                        Modification / Creation Test
                     </h3>
                     <h3>
-                        Description : #{listMotBean.detailListMot.description}
+                        Titre :#{testDetailBean.test.titre}
+                    </h3>
+                    <h3>
                     </h3>
 
 
-                    <p:pickList id="picking-list" value="#{listMotBean.motPickingList}" var="listM" 
-                                itemValue="#{listM}"   filterMatchMode="contains" converter="#{listMotBean.motConverter}" >
+                    <p:pickList  id="picking-list" value="#{testDetailBean.pickingList}" var="listM" 
+                                 itemValue="#{listM}"    converter="#{testDetailBean.listMotConverter}" >
 
                         <f:facet name="sourceCaption">Disponible</f:facet>
                         <f:facet name="targetCaption">Selectionné</f:facet>
-                        <p:ajax rendered="false" event="transfer" listener="#{listMotBean.onTransfer}" />
+                        <p:ajax rendered="false" event="transfer" listener="#{testDetailBean.onChoseListMot}" />
 
-
+                        
+                        
 
 
                         <p:column style="width:90%;">
-                            <h:outputText value="#{listM.francais}:#{listM.anglais}" />
+                            <h:outputText value="#{listM.Titre}" />
                         </p:column>
                     </p:pickList>
 
 
-                    <p:button id="back" value="Revenir à la liste" outcome="list"/> 
-                   
-
-
-
-
-
-
-
-
+                    <p:button id="back" value="Revenir à la liste" outcome="list"/>                                        
                 </ui:define>
 
             </ui:composition>

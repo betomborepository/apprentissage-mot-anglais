@@ -10,17 +10,10 @@
 
         <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">
 
-<<<<<<< Updated upstream
 
             <ui:define name="content">
                 <p:dataTable var="listmot" value="#{listMotBean.allListMots}">
                     <f:facet name="header">
-=======
-      
-            <ui:define name="content">
-                <p:dataTable var="listmot" value="#{listMotBean.allListMots}">
-                     <f:facet name="header">
->>>>>>> Stashed changes
                         Liste de mots
                     </f:facet>
                     <p:column headerText="titre">
@@ -29,15 +22,26 @@
                     <p:column headerText="description">
                         <h:outputText value="#{listmot.description}" />
                     </p:column>
-<<<<<<< Updated upstream
                     <p:column headerText="detail">
                         <h:link value="detail" outcome="#{listMotBean.detail(listmot)}" />
-=======
-                     <p:column headerText="detail">
-                         <h:link value="detail" outcome="#{listMotBean.detail(listmot)}" />
->>>>>>> Stashed changes
                     </p:column>
                 </p:dataTable>
+                
+                
+                <h:form>
+                
+                         <h3>Formulair d'ajout</h3>
+                    <!-- <p:growl id="msg" showDetail="true" escape="false" />-->
+                    <h3>
+                        <p:inputText value="#{listMotBean.inputTitre}"  placeholder='Titre' />
+                 
+                    </h3>
+                    <h3>
+                        <p:inputText value="#{listMotBean.inputDescription}"  placeholder='Description' />                 
+                    </h3>                                                              
+                    <h:commandButton action="#{listMotBean.ajouterListMot()}"  value="Ajouter"  title="Ajouter" />
+        
+                </h:form>>
             </ui:define>
 
         </ui:composition>

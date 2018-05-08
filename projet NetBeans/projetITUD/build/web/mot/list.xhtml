@@ -9,7 +9,7 @@
         <ui:composition template="./../WEB-INF/templates/MainTemplate.xhtml">          
             <ui:define  name="content">
                   <h:form id="form">
-                <p:dataTable id="cars1" var="mot" value="#{motBean.allMots}" editable="true" style="margin-bottom:20px">
+                      <p:dataTable  selection="#{motBean.selectedMot}" id="cars1" var="mot" value="#{motBean.allMots}" editable="true" style="margin-bottom:20px">
                     <f:facet name="header">
                         mots
                     </f:facet>
@@ -32,8 +32,18 @@
                     <p:column style="width:32px">
                         <p:rowEditor />
                     </p:column>
-                </p:dataTable>
+                    
+                    <p:column>
 
+                        <f:facet name="header">Action</f:facet>
+
+                        <h:commandLink value="Delete" action="#{motBean.enleverMot(mot)}" />
+
+                    </p:column>
+                        
+                    
+                </p:dataTable>
+               
 
 
               

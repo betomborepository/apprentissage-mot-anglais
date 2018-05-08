@@ -48,6 +48,8 @@ public class ListMotBean implements Serializable {
     private Listmot detailListMot;
     private int idDetail;
     private DualListModel<Mot> motPickingList;
+    private String inputDescription;
+    private String inputTitre;
     
     public ListMotBean() {
     }
@@ -170,7 +172,7 @@ public class ListMotBean implements Serializable {
         this.detailListMot.getMots().add(mot);
     }
     
-    /*public Converter<Mot> getMotConverter() {
+    public Converter<Mot> getMotConverter() {
         return new Converter<Mot>() {
             @Override
             public Mot getAsObject(FacesContext fc, UIComponent uic, String id) {
@@ -182,5 +184,45 @@ public class ListMotBean implements Serializable {
                 return t.getId().toString(); //To change body of generated methods, choose Tools | Templates.
             }
         };
-    }*/
+    }
+    
+    
+    public String ajouterListMot()
+    {
+        Listmot listMot = new Listmot();
+        listMot.setTitre(getInputTitre());
+        listMot.setDescription(getInputDescription());
+        listMot = listMotManager.update(listMot);
+        
+        
+        return this.detail(listMot);
+    }
+
+    /**
+     * @return the inputDescription
+     */
+    public String getInputDescription() {
+        return inputDescription;
+    }
+
+    /**
+     * @param inputDescription the inputDescription to set
+     */
+    public void setInputDescription(String inputDescription) {
+        this.inputDescription = inputDescription;
+    }
+
+    /**
+     * @return the inputTitre
+     */
+    public String getInputTitre() {
+        return inputTitre;
+    }
+
+    /**
+     * @param inputTitre the inputTitre to set
+     */
+    public void setInputTitre(String inputTitre) {
+        this.inputTitre = inputTitre;
+    }
 }
