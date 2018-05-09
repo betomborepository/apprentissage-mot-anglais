@@ -48,6 +48,7 @@ public class TestDetailBean implements Serializable{
     String[]reponseTapee;
     Boolean[] jugement;
     int motSize = 0;
+    String[] motTraduit;
     @EJB
     private TestManager testManager;
    
@@ -135,10 +136,32 @@ public class TestDetailBean implements Serializable{
     }  
     private void initParam()
     {
-         motSize = test.getIdListemot().getMots().size();
+        motSize = test.getIdListemot().getMots().size();
         reponseVisibility = new Boolean[motSize];
+        for(int i=0;i<motSize;i++)
+        {
+            reponseVisibility[i] = false;
+        }
+        System.out.println("test isNUll "+(reponseVisibility[0]==null));
         reponseTapee = new String[motSize];
         jugement = new Boolean[motSize];
+        motTraduit = new String[motSize];
+        for(int i=0;i<motSize;i++)
+        {
+            if(sens){
+                motTraduit[i]=test.getIdListemot().getMots().get(i).getAnglais();
+            }else{
+                motTraduit[i]=test.getIdListemot().getMots().get(i).getFrancais();
+            }
+        }
+    }
+
+    public String[] getMotTraduit() {
+        return motTraduit;
+    }
+
+    public void setMotTraduit(String[] motTraduit) {
+        this.motTraduit = motTraduit;
     }
      public Boolean getSens() {
         return sens;
@@ -155,9 +178,11 @@ public class TestDetailBean implements Serializable{
     public void setSensLabel(String sensLabel) {
         this.sensLabel = sensLabel;
     }
-    public void toggleAnswer(ActionEvent e) {
-        Integer i = (Integer)e.getComponent().getAttributes().get("index");
+    public void toggleAnswer(Integer i) {
+       // Integer i = (Integer)e.getComponent().getAttributes().get("index");
+        System.out.println("avant modif "+this.reponseVisibility[i]);
         this.reponseVisibility[i]=!this.reponseVisibility[i];
+        System.out.println("apres modif "+this.reponseVisibility[i]);
     }
 
     public Boolean[] getReponseVisibility() {

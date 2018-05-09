@@ -20,7 +20,7 @@
                     <f:viewAction action="#{testDetailBean.beginTest}"/>  
                 </f:metadata>
                 <h:form>
-                    <p:dataTable value="#{testDetailBean.test.idListemot.mots}" var="motsO" editable="true" style="margin-bottom:20px"  rowIndexVar="index">>
+                    <p:dataTable value="#{testDetailBean.test.idListemot.mots}" var="motsO" editable="true" style="margin-bottom:20px"  rowIndexVar="index" >
                         <f:facet name="header">
                             Vous etes en train de faire le test '#{testDetailBean.test.titre}' en #{testDetailBean.sensLabel}
                         </f:facet>
@@ -42,32 +42,28 @@
                             </p:cellEditor>
 
                         </p:column>
-                        <p:column headerText="Reponse">
-                            <p:inputText value="#{testDetailBean.reponseTapee[index]}"/>                        
+                        <p:column headerText="Reponse" >
+                            <p:inputText value="#{testDetailBean.reponseTapee[index]}"/>
+                            
                         </p:column>
-                       <p:column headerText="Reponse cache">
-                            <c:choose>
-                                <c:when test="#{testDetailBean.sens}">
-                                    <h:outputText value="#{motsO.anglais}" rendered="#{testDetailBean.reponseVisibility[index]}" />
-                                </c:when>
-                                <c:otherwise>
-                                   <h:outputText value="#{motsO.francais}" rendered="#{testDetailBean.reponseVisibility[index]}"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </p:column>    
-                        <p:column headerText="">
-                            <h:commandButton action="#{user.editAction}" >
-                                <f:setPropertyActionListener target="#{user.action}" value="delete" />
-                            </h:commandButton>
-                        </p:column>
+                       <p:column headerText="Reponse cache" >
+                           <p id="reponse#{index}">
+                            <h:panelGroup rendered="#{testDetailBean.reponseVisibility[index]}">
+                                <h:outputText value = "#{testDetailBean.motTraduit[index]}"/>
+                             </h:panelGroup>    
+                            </p>
+                          
+                       </p:column>   
+                         <p:column headerText="" >
+                             <h:commandButton value = "Afficher reponse" action="#{testDetailBean.toggleAnswer(index)}">
+                                 <f:ajax event="click" execute="reponse#{index}" render="reponse#{index}"></f:ajax>
+                           </h:commandButton>
+                         </p:column>  
                         <p:column headerText="">
                             <p:selectOneMenu id="jugement" style="width:125px" value="#{testDetailBean.jugement[index]}">
                                 <f:selectItem itemLabel="C est vrai" itemValue="true" />
                                 <f:selectItem itemLabel="C est faux" itemValue="false" />
                             </p:selectOneMenu>
-                        </p:column>
-                        <p:column style="width:32px">
-                            <p:rowEditor />
                         </p:column>
                     </p:dataTable>
                     <p:commandButton value="Sauvegarder" icon="ui-icon-check" action="#{testDetailBean.sauvegarderTest}"/>
